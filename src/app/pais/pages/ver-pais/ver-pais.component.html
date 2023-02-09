@@ -19,13 +19,47 @@
 
     <div class="col">
       <h3>Información</h3>
-      <ul>
-        <li class="list-group-item"></li>
-        <strong>Población </strong>
-        {{
-          pais.population | number
-        }}
+      <ul class="list-group">
+        <li class="list-group-item">
+          <strong>Población </strong>
+          {{ pais.population | number }}
+        </li>
+
+        <li class="list-group-item">
+          <strong>Código numérico </strong>
+          {{ pais.ccn3 | number }}
+        </li>
+
+        <li class="list-group-item">
+          <strong>Código cca3 </strong>
+          {{ pais.cca3 }}
+        </li>
       </ul>
     </div>
   </div>
+
+  <h3>Traducciones</h3>
+  <div class="row">
+    <div class="col">
+      <span class="badge bg-primary mr-1">{{
+        pais.translations["fra"].common
+      }}</span>
+      <span class="badge bg-primary mr-1">{{
+        pais.translations["deu"].common
+      }}</span
+      ><span class="badge bg-primary mr-1">{{
+        pais.translations["est"].common
+      }}</span
+      ><span class="badge bg-primary mr-1">{{
+        pais.translations["ita"].common
+      }}</span
+      ><span class="badge bg-primary mr-1">{{
+        pais.translations["jpn"].common
+      }}</span>
+    </div>
+  </div>
+
+  <!-- <pre class="mt-5">
+    {{ pais | json }}
+  </pre> -->
 </ng-template>
