@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Country } from '../../intefaces/pais-interface';
 import { PaisService } from '../../services/pais.service';
 
+type Region = 'africa' | 'americas' | 'asia' | 'europe' | 'oceania';
 @Component({
   selector: 'app-por-region',
   templateUrl: './por-region.component.html',
@@ -14,7 +15,7 @@ import { PaisService } from '../../services/pais.service';
   ],
 })
 export class PorRegionComponent {
-  regiones: string[] = ['africa', 'americas', 'asia', 'europe', 'oceania'];
+  regiones: Region[] = ['africa', 'americas', 'asia', 'europe', 'oceania'];
   regionActiva: string = '';
   paises: Country[] = [];
 
