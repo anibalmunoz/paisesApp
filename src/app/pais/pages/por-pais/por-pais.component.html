@@ -2,7 +2,7 @@
   <h2>Por país</h2>
   <hr />
 
-  <div class="row">
+  <!-- <div class="row">
     <div class="col">
       <app-pais-input
         (onEnter)="buscar($event)"
@@ -10,7 +10,12 @@
         pholder="Buscar país..."
       ></app-pais-input>
     </div>
-  </div>
+  </div> -->
+
+  <shared-search-box
+    (onDebounce)="buscar($event)"
+    placeholder="Buscar por pais"
+  ></shared-search-box>
 
   <ul class="list-group" *ngIf="mostrarSugerencias">
     <li
