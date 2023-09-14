@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable, catchError, delay, of } from 'rxjs';
 import { Country } from '../intefaces/pais-interface';
 
 @Injectable({
@@ -18,6 +18,13 @@ export class PaisService {
 
   constructor(private http: HttpClient) {}
 
+  private getCountriesRequest(url: string): Observable<Country[]> {
+    return this.http.get<Country[]>(url).pipe(
+      catchError(() => of([]))
+      // delay(1000)
+    );
+  }
+
   buscarPais(termino: string): Observable<Country[]> {
     return this._buscar(termino, 'name');
   }
@@ -27,7 +34,7 @@ export class PaisService {
   }
 
   getPaisPorCodigo(id: string): Observable<Country> {
-    const url = `${this.apiUrl}/alpha/${id} `;
+    const url = `${this.apiUrl}/alpha/${id}`;
     return this.http.get<Country>(url);
   }
 
@@ -37,6 +44,6 @@ export class PaisService {
 
   private _buscar(termino: string, endpoint: string) {
     const url = `${this.apiUrl}/${endpoint}/${termino}`;
-    return this.http.get<Country[]>(url, { params: this.httpParams });
+    return this.getCountriesRequest(url);
   }
 }

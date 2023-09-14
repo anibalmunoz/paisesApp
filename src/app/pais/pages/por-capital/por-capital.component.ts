@@ -10,6 +10,7 @@ export class PorCapitalComponent implements OnInit {
   termino: string = '';
   hayError: boolean = false;
   paises: Country[] = [];
+  public isLoading: boolean = false;
 
   constructor(private paisService: PaisService) {}
 
@@ -18,18 +19,12 @@ export class PorCapitalComponent implements OnInit {
   buscar(termino: string) {
     this.hayError = false;
     this.termino = termino;
+    this.isLoading = true;
 
-    this.paisService.buscarCapital(this.termino).subscribe(
-      (paises) => {
-        this.paises = paises;
-        this.hayError = paises.length == 0;
-      },
-      (err) => {
-        console.log('Error');
-        this.hayError = true;
-        this.paises = [];
-        console.info(err);
-      }
-    );
+    this.paisService.buscarCapital(this.termino).subscribe((paises) => {
+      this.paises = paises;
+      this.hayError = paises.length == 0;
+      this.isLoading = false;
+    });
   }
 }

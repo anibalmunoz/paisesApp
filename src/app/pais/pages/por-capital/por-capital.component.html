@@ -2,14 +2,19 @@
   <h2>Por capital</h2>
   <hr />
 
-  <div class="row">
+  <!-- <div class="row">
     <div class="col">
       <app-pais-input
         (onEnter)="buscar($event)"
         pholder="Buscar capital..."
       ></app-pais-input>
     </div>
-  </div>
+  </div> -->
+
+  <shared-search-box
+    (onDebounce)="buscar($event)"
+    placeholder="Buscar por capital"
+  ></shared-search-box>
 
   <hr />
 </div>
@@ -17,6 +22,8 @@
 <div class="alert alert-danger" *ngIf="hayError">
   No se encontró nada con el término {{ termino }}
 </div>
+
+<shared-loading-spinner *ngIf="isLoading"></shared-loading-spinner>
 
 <div class="row" *ngIf="paises.length > 0">
   <div class="col">
