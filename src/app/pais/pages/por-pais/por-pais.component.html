@@ -15,6 +15,7 @@
   <shared-search-box
     (onDebounce)="buscar($event)"
     placeholder="Buscar por pais"
+    [initialValue]="initialValue"
   ></shared-search-box>
 
   <ul class="list-group" *ngIf="mostrarSugerencias">

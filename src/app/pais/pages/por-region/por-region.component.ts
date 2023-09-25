@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Country } from '../../intefaces/pais-interface';
 import { PaisService } from '../../services/pais.service';
+import { Region } from '../../intefaces/region.type';
 
-type Region = 'africa' | 'americas' | 'asia' | 'europe' | 'oceania';
 @Component({
   selector: 'app-por-region',
   templateUrl: './por-region.component.html',
@@ -14,12 +14,20 @@ type Region = 'africa' | 'americas' | 'asia' | 'europe' | 'oceania';
     `,
   ],
 })
-export class PorRegionComponent {
+export class PorRegionComponent implements OnInit {
   regiones: Region[] = ['africa', 'americas', 'asia', 'europe', 'oceania'];
-  regionActiva: string = '';
+  regionActiva: Region = '';
   paises: Country[] = [];
+  public initialRegion: Region = 'americas';
 
   constructor(private paisService: PaisService) {}
+
+  ngOnInit(): void {
+    this.paises = this.paisService.cacheStores.byRegion.countries;
+    this.initialRegion =
+      this.paisService.cacheStores.byRegion.region ?? 'americas';
+    this.activarRegion(this.initialRegion);
+  }
 
   getClase(region: string) {
     return region === this.regionActiva
@@ -27,7 +35,8 @@ export class PorRegionComponent {
       : 'btn btn-outline-primary';
   }
 
-  activarRegion(region: string) {
+  activarRegion(region: Region) {
+    console.log('activando region>>>>>>>', region);
     if (region === this.regionActiva) {
       return;
     }
@@ -35,7 +44,7 @@ export class PorRegionComponent {
     this._buscar(this.regionActiva);
   }
 
-  private _buscar(termino: string) {
+  private _buscar(termino: Region) {
     this.paisService.buscarRegion(termino).subscribe(
       (paises) => {
         this.paises = paises;

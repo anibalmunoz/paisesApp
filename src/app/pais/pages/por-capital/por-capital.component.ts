@@ -11,10 +11,14 @@ export class PorCapitalComponent implements OnInit {
   hayError: boolean = false;
   paises: Country[] = [];
   public isLoading: boolean = false;
+  public initialValue: String = '';
 
   constructor(private paisService: PaisService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.paises = this.paisService.cacheStores.byCapital.countries;
+    this.initialValue = this.paisService.cacheStores.byCapital.term;
+  }
 
   buscar(termino: string) {
     this.hayError = false;
