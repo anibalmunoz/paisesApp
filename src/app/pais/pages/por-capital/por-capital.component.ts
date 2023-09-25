@@ -16,8 +16,8 @@ export class PorCapitalComponent implements OnInit {
   constructor(private paisService: PaisService) {}
 
   ngOnInit(): void {
-    this.paises = this.paisService.cacheStores.byCapital.countries;
-    this.initialValue = this.paisService.cacheStores.byCapital.term;
+    this.paises = this.paisService.cacheStore.byCapital.countries;
+    this.initialValue = this.paisService.cacheStore.byCapital.term;
   }
 
   buscar(termino: string) {

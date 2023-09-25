@@ -23,9 +23,9 @@ export class PorRegionComponent implements OnInit {
   constructor(private paisService: PaisService) {}
 
   ngOnInit(): void {
-    this.paises = this.paisService.cacheStores.byRegion.countries;
+    this.paises = this.paisService.cacheStore.byRegion.countries;
     this.initialRegion =
-      this.paisService.cacheStores.byRegion.region ?? 'americas';
+      this.paisService.cacheStore.byRegion.region ?? 'americas';
     this.activarRegion(this.initialRegion);
   }
 

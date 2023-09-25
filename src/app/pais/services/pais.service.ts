@@ -11,7 +11,7 @@ import { Region } from '../intefaces/region.type';
 export class PaisService {
   private apiUrl: string = 'https://restcountries.com/v2';
 
-  public cacheStores: CountryCacheStorage = {
+  public cacheStore: CountryCacheStorage = {
     byCapital: { term: '', countries: [] },
     byCountries: { term: '', countries: [] },
     byRegion: { region: '', countries: [] },
@@ -25,7 +25,17 @@ export class PaisService {
   }
 
   constructor(private http: HttpClient) {
-    console.log('countryservice init');
+    console.log('construyendo el service>>>>>>>');
+    this.loadFromLocalStorage();
+  }
+
+  private saveToLocalStorage() {
+    localStorage.setItem('cacheStore', JSON.stringify(this.cacheStore));
+  }
+
+  private loadFromLocalStorage() {
+    if (!localStorage.getItem('cacheStore')) return;
+    this.cacheStore = JSON.parse(localStorage.getItem('cacheStore')!);
   }
 
   private getCountriesRequest(url: string): Observable<Country[]> {
@@ -39,8 +49,9 @@ export class PaisService {
     return this._buscar(termino, 'name').pipe(
       tap(
         (paises) =>
-          (this.cacheStores.byCountries = { term: termino, countries: paises })
-      )
+          (this.cacheStore.byCountries = { term: termino, countries: paises })
+      ),
+      tap(() => this.saveToLocalStorage())
     );
   }
 
@@ -48,8 +59,9 @@ export class PaisService {
     return this._buscar(termino, 'capital').pipe(
       tap(
         (paises) =>
-          (this.cacheStores.byCapital = { term: termino, countries: paises })
-      )
+          (this.cacheStore.byCapital = { term: termino, countries: paises })
+      ),
+      tap(() => this.saveToLocalStorage())
     );
   }
 
@@ -62,8 +74,9 @@ export class PaisService {
     return this._buscar(region, 'region').pipe(
       tap(
         (paises) =>
-          (this.cacheStores.byRegion = { region: region, countries: paises })
-      )
+          (this.cacheStore.byRegion = { region: region, countries: paises })
+      ),
+      tap(() => this.saveToLocalStorage())
     );
   }
 

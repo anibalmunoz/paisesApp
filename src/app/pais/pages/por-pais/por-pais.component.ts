@@ -24,8 +24,8 @@ export class PorPaisComponent implements OnInit {
   constructor(private paisService: PaisService) {}
 
   ngOnInit(): void {
-    this.paises = this.paisService.cacheStores.byCountries.countries;
-    this.initialValue = this.paisService.cacheStores.byCountries.term;
+    this.paises = this.paisService.cacheStore.byCountries.countries;
+    this.initialValue = this.paisService.cacheStore.byCountries.term;
   }
 
   buscar(termino: string) {
