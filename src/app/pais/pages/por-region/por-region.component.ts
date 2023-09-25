@@ -36,7 +36,6 @@ export class PorRegionComponent implements OnInit {
   }
 
   activarRegion(region: Region) {
-    console.log('activando region>>>>>>>', region);
     if (region === this.regionActiva) {
       return;
     }
